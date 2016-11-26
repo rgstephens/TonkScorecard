@@ -18,8 +18,8 @@ const { Types, Creators } = createActions({
   playerOut: ['name'],
   updateNameRequest: ['id', 'name'],
   updateName: ['id', 'name'],
-  wonRequest: ['id'],
-  won: ['id']
+  wonRequest: ['id', 'multiplier'],
+  won: ['id', 'multiplier']
 })
 
 export const GameTypes = Types
@@ -140,17 +140,17 @@ export const wonRequest = (state: Object) => {
   console.log('GameRedux.wonRequest, state: ' + JSON.stringify(state));
 }
 
-export const won = (state: Object, { id }: Object) => {
-  console.log('GameRedux.won, id: ' + id + ', state: ' + JSON.stringify(state));
+export const won = (state: Object, { id, multiplier }: Object) => {
+  console.log('GameRedux.won, id: ' + id + ', multiplier: ' +  ', state: ' + JSON.stringify(state));
   // Winner adds stake * (activePlayers - 1)
-  const winnerDelta = state.bet * (state.activeCount - 1);
+  const winnerDelta = (state.bet * multiplier) * (state.activeCount - 1);
   let playerList = [];
   state.player.forEach(function(p, i) {
     if (i == id) {
       //console.log('winnerDelta: ' + winnerDelta + ', calc: ' + (p.balance + winnerDelta));
       p = update(p, { balance: p.balance + winnerDelta });
     } else {
-      p = update(p, { balance: p.balance - state.bet });
+      p = update(p, { balance: p.balance - (state.bet * multiplier) });
     }
     playerList.push(p);
   });

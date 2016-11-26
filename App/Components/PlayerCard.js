@@ -35,9 +35,9 @@ class PlayerCard extends React.Component {
     this.props.updateNameRequest(id, name)
   }
 
-  handlePressWon = (id) => {
-    console.log('Won pressed, id: ' + id);
-    this.props.wonRequest(id)
+  handlePressWon = (id, multiplier) => {
+    console.log('Won pressed, id: ' + id + ', multiplier: ' + multiplier);
+    this.props.wonRequest(id, multiplier)
   }
 
   updateText = (text) => {
@@ -66,17 +66,10 @@ class PlayerCard extends React.Component {
           </MKButton>
         </View>
         <View style={styles.buttonRowStyle}>
-          <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id)}>
+          <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id, 1)}>
             <Text>Won</Text>
           </MKButton>
-          <MKButton style={styles.buttonStyle} onPress={() => {
-            console.log('onPress');
-          }}>
-            <Text>Tonk</Text>
-          </MKButton>
-          <MKButton style={styles.buttonStyle} onPress={() => {
-            console.log('onPress');
-          }}>
+          <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id, 2)}>
             <Text>Double</Text>
           </MKButton>
           <MKButton style={styles.buttonStyle} onPress={() => {

@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateNameRequest: (id, name) => dispatch(GameActions.updateName(id, name)),
-    wonRequest: (id) => dispatch(GameActions.won(id))
+    wonRequest: (id, multiplier) => dispatch(GameActions.won(id, multiplier))
   }
 }
 
