@@ -35,7 +35,7 @@ export default function * root () {
     takeLatest(GameTypes.GAME_RESET_SCORES_REQUEST, resetscores),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(GameTypes.UPDATE_NAME_REQUEST, updateName)
-//    takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)
+    takeLatest(GameTypes.UPDATE_NAME_REQUEST, updateName),
+    takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)
   ]
 }

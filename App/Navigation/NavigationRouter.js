@@ -45,9 +45,7 @@ class NavigationRouter extends Component {
 
             {/* Custom navigation bar example */}
             <Scene key='deviceInfo' component={DeviceInfoScreen} title='Device Info' navBar={CustomNavBar} />
-{/*
             <Scene key='playerGrid' component={PlayerGrid} title='Tonk' />
-*/}
           </Scene>
         </Scene>
       </Router>

@@ -46,7 +46,6 @@ class PlayerCard extends React.Component {
   // <Text style={styles.cardTitle}>/{this.state.name}</Text>
 
   render () {
-    // Redux structure - game: { playerCount, activeCount, bet, player: { name, balance, active } }
     const i = this.props.id;
     console.log('Components/PlayerCard, render(), this.props: ' + JSON.stringify(this.props))
     console.log('Components/PlayerCard, render(), this.props.player: ' + JSON.stringify(this.props.player))
@@ -63,15 +62,21 @@ class PlayerCard extends React.Component {
           <MKButton
             style={[styles.cardTitleButton, this.props.balance > 0 ? styles.colorPlus : this.props.balance < 0 ? styles.colorMinus : null]}>
             <Text
-              style={styles.balanceText}>{this.props.balance < 0 ? this.props.balance.toFixed(2) : '+' + this.props.balance.toFixed(2)}
-              </Text>
+              style={styles.balanceText}>{this.props.balance < 0 ? this.props.balance.toFixed(2) : '+' + this.props.balance.toFixed(2)}</Text>
           </MKButton>
         </View>
         <View style={styles.buttonRowStyle}>
           <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id)}>
-            <Text>Won/Tonk</Text>
+            <Text>Won</Text>
           </MKButton>
-          <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id)}>
+          <MKButton style={styles.buttonStyle} onPress={() => {
+            console.log('onPress');
+          }}>
+            <Text>Tonk</Text>
+          </MKButton>
+          <MKButton style={styles.buttonStyle} onPress={() => {
+            console.log('onPress');
+          }}>
             <Text>Double</Text>
           </MKButton>
           <MKButton style={styles.buttonStyle} onPress={() => {

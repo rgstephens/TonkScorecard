@@ -152,7 +152,6 @@ export const won = (state: Object, { id }: Object) => {
     } else {
       p = update(p, { balance: p.balance - state.bet });
     }
-    console.log('------------ balance changed -------------- ' + p.balance);
     playerList.push(p);
   });
   state = update(state, { player: playerList })

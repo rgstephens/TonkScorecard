@@ -3,9 +3,8 @@ import GameActions from '../Redux/GameRedux'
 
 import PlayerCard from '../Components/PlayerCard'
 
-const mapStateToProps = (rowData, state) => {
-  console.log('Components/PlayerCard.mapStateToProps rowData: ' + JSON.stringify(rowData))
-  console.log('Components/PlayerCard.mapStateToProps state: ' + JSON.stringify(state))
+const mapStateToProps = (state) => {
+  console.log('PlayerCard.mapStateToProps.PlayerCard: ' + JSON.stringify(state))
   return {
     state: state.game
   }

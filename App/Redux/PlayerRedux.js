@@ -28,7 +28,6 @@ const update = (state, mutations) =>
 export const won = (state = INITIAL_STATE, { amount }: Object) => {
   console.log('amount: ' + JSON.stringify(amount));
   state = update(state, { balance: state.balance + amount })
-  console.log('------------ balance changed (2) -------------- ' + p.balance);
   return state
 }
 
