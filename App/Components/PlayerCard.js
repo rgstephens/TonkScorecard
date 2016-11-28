@@ -63,6 +63,7 @@ class PlayerCard extends React.Component {
     console.log('Components/PlayerCard, render(), this.props.player: ' + JSON.stringify(this.props.player))
     console.log('this.props.balance: ' + JSON.stringify(this.props.balance))
     console.log('this.props.balance.toFixed(2): ' + this.props.balance.toFixed())
+    //https://facebook.github.io/react-native/docs/handling-text-input.html
     return (
       <View style={styles.cardStyle}>
         <View resizeMode="cover"

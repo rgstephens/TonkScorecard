@@ -42,7 +42,10 @@ export default {
     )
   },
 
-  betButton () {
+  betButton (handlePlus) {
+    console.log('betButton, handlePlus: ' + typeof(handlePlus));
+    console.log('betButton, this.props: ' + JSON.stringify(this.props));
+    console.log('betButton, this.state: ' + JSON.stringify(this.state));
     return (
       <View style={styles.buttonRowViewStyle}>
         <TouchableOpacity onPress={openDrawer}>
@@ -52,11 +55,11 @@ export default {
           </MKButton>
         </TouchableOpacity>
         <MKButton style={[styles.betValue]}>
-          <Text style={styles.betText}>$ 1</Text>
+          <Text style={styles.betText}>$ 33</Text>
         </MKButton>
         <TouchableOpacity onPress={openDrawer}>
           <MKButton style={styles.betButton} fab={true} rippleColor={`rgba(${MKColor.RGBIndigo},.2)`}
-                    rippleLocation="center" onPress={this.handleAddBet}>
+                    rippleLocation="center" onPress={handlePlus}>
             <Text><MaterialIcon name="add" size={20} color={'white'}/></Text>
           </MKButton>
         </TouchableOpacity>

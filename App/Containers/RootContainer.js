@@ -19,12 +19,21 @@ class RootContainer extends Component {
   }
 
   render () {
+    //console.log('RootContainer props: ' + JSON.stringify(this.props));
+    //console.log('RootContainer state: ' + JSON.stringify(this.state));
     return (
       <View style={styles.applicationView}>
         <StatusBar barStyle='light-content' />
-        <NavigationRouter />
+        <NavigationRouter {...this.props} />
       </View>
     )
+  }
+}
+
+const mapStateToProps = (state) => {
+  //console.log('RootContainer.mapStateToProps, state: ' + JSON.stringify(state));
+  return {
+    game: state.game
   }
 }
 
@@ -32,4 +41,4 @@ const mapStateToDispatch = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup())
 })
 
-export default connect(null, mapStateToDispatch)(RootContainer)
+export default connect(mapStateToProps, mapStateToDispatch)(RootContainer)
