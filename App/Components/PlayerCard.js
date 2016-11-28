@@ -10,7 +10,7 @@ class PlayerCard extends React.Component {
     console.log('Components/PlayerCard.constructor props: ' + JSON.stringify(props));
     console.log('Components/PlayerCard.constructor state: ' + JSON.stringify(this.state));
 //    this.handlePressWon = this.handlePressWon.bind(this);
-//    this.handleUpdateName = this.handleUpdateName.bind(this);
+    this.handleUpdateName = this.handleUpdateName.bind(this);
   }
 
 //  componentWillReceiveProps (newProps) {
@@ -31,7 +31,19 @@ class PlayerCard extends React.Component {
 //  }
 
   handleUpdateName = (id, name) => {
-    //console.log('handleUpdateName: ' + name + ', id: ' + id);
+    console.log('handleUpdateName, name: ' + name + ', id: ' + id);
+    //console.log('handleUpdateName, state: ' + JSON.stringify(state));
+    //console.log('handleUpdateName, this.state: ' + JSON.stringify(this.state));
+    //console.log('handleUpdateName, this.props: ' + JSON.stringify(this.props));
+    this.setState((name) => {
+      return {
+        curText: name,
+        prevText: this.state.curText,
+        prev2Text: this.state.prevText,
+        prev3Text: this.state.prev2Text,
+      };
+    });
+//    console.log('handleUpdateName, stringify(name.target): ' + JSON.stringify(name.target) + ', id: ' + id);
     this.props.updateNameRequest(id, name)
   }
 
@@ -55,7 +67,15 @@ class PlayerCard extends React.Component {
       <View style={styles.cardStyle}>
         <View resizeMode="cover"
               style={[styles.cardTitleContainer, i == 0 ? styles.cardTitleBackgroundColor1 : i == 1 ? styles.cardTitleBackgroundColor2 : i == 2 ? styles.cardTitleBackgroundColor3 : i == 3 ? styles.cardTitleBackgroundColor4 : styles.cardTitleBackgroundColor5]}>
-          <TextInput style={styles.cardTitleEdit} value={this.props.name} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')}
+          <TextInput style={styles.cardTitleEdit} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')} autoCorrect={false}
+                     value={this.state.name}
+            //                     onEndEditing={(event) => this.handleUpdateName(event.nativeEvent.text, this.state.id)}
+//                     onSubmitEditing={(event) => this.handleUpdateName(event.nativeEvent.text, this.state.id)}
+//                     onEndEditing={(event) => this.handleUpdateName(this.state.id, this.state.name)}
+//                     onEndEditing={(name) => this.handleUpdateName(this.state.id, this.state.name)}
+//                     onEndEditing={(name) => this.handleUpdateName(this.state.id, name)}
+//                     onChangeText={(name) => this.setState({name})}
+//                     onSubmitEditing={(event) => this.handleUpdateName(this.state.id, event.nativeEvent.text)}
                      onEndEditing={(event) => this.handleUpdateName(this.state.id, event.nativeEvent.text)}
                      onChangeText={(name) => this.setState({name})}
           />

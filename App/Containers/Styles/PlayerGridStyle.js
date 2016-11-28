@@ -68,7 +68,8 @@ export default StyleSheet.create({
     paddingBottom: Metrics.doubleBaseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin,
     justifyContent: 'space-around',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingBottom: 0
 /*
     flex: 1,
     justifyContent: 'space-around',
@@ -89,8 +90,8 @@ export default StyleSheet.create({
     flexGrow: 1,
     paddingLeft: 5,
     paddingRight: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 5,
+    marginRight: 5,
     marginBottom: 5,
     marginRight: 5,
     justifyContent: 'center',
