@@ -55,7 +55,7 @@ class PlayerCard extends React.Component {
       <View style={styles.cardStyle}>
         <View resizeMode="cover"
               style={[styles.cardTitleContainer, i == 0 ? styles.cardTitleBackgroundColor1 : i == 1 ? styles.cardTitleBackgroundColor2 : i == 2 ? styles.cardTitleBackgroundColor3 : i == 3 ? styles.cardTitleBackgroundColor4 : styles.cardTitleBackgroundColor5]}>
-          <TextInput style={styles.cardTitleEdit} value={this.state.name} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')}
+          <TextInput style={styles.cardTitleEdit} value={this.props.name} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')}
                      onEndEditing={(event) => this.handleUpdateName(this.state.id, event.nativeEvent.text)}
                      onChangeText={(name) => this.setState({name})}
           />

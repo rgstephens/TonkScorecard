@@ -108,8 +108,6 @@ export default StyleSheet.create({
     paddingRight: 5
   },
 
-
-
   containerOrig: {
     flex: 1,
     marginTop: Metrics.navBarHeight,

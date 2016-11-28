@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
-import { View, Text, ListView, Image, Button } from 'react-native'
+import { View, Text, ListView, Image, Button, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux'
-import { getTheme, setTheme, MKButton } from 'react-native-material-kit'
+import { getTheme, setTheme, MKButton, MKColor } from 'react-native-material-kit'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import PlayerCard from './PlayerCard'
 import GameActions from '../Redux/GameRedux'
 
@@ -154,16 +155,21 @@ class PlayerGrid extends React.Component {
     return (
       <View style={styles.container}>
         <AlertMessage title='CLick plus to add a player' show={this._noRowData()}/>
-        <ListView contentContainerStyle={styles.listContent} dataSource={this.state.dataSource} renderRow={(rowData, sectionID, rowID, highlightRow) => <PlayerCard {...rowData} s={sectionID} id={rowID} />} />
-        <MKButton style={styles.plusButtonStyle} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onPress={this.handlePressAddPlayer}>
-          <Text>Add</Text>
+        <ListView contentContainerStyle={styles.listContent} dataSource={this.state.dataSource}
+                  renderRow={(rowData, sectionID, rowID, highlightRow) => <PlayerCard {...rowData} s={sectionID}
+                                                                                      id={rowID}/>}/>
+        <MKButton style={styles.plusButtonStyle} fab={true} rippleColor={`rgba(${MKColor.RGBIndigo},.2)`}
+                  rippleLocation="center" onPress={this.handlePressAddPlayer}>
+          <Text><MaterialIcon name="add" size={30} color={'white'}/></Text>
         </MKButton>
-        <MKButton style={styles.plusButtonStyle} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onPress={this.handlePressScoresReset}>
-          <Text>Reset Scores</Text>
-        </MKButton>
-        <MKButton style={styles.plusButtonStyle} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onPress={this.handlePressGameReset}>
-          <Text>Reset Game</Text>
-        </MKButton>
+        <View style={styles.buttonRowStyle}>
+          <MKButton style={[styles.regularButtonStyle, styles.buttonLeftStyle]} onPress={this.handlePressScoresReset}>
+            <Text style={styles.buttonText}>Reset Scores</Text>
+          </MKButton>
+          <MKButton style={[styles.regularButtonStyle, styles.buttonRightStyle]} onPress={this.handlePressGameReset}>
+            <Text style={styles.buttonText}>Reset Game</Text>
+          </MKButton>
+        </View>
       </View>
     )
   }
