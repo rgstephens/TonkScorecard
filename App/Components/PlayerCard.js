@@ -13,6 +13,17 @@ class PlayerCard extends React.Component {
     this.handleUpdateName = this.handleUpdateName.bind(this);
   }
 
+  componentWillReceiveProps (newProps) {
+    console.log('PlayerCard.componentWillReceiveProps, newProps: ' + JSON.stringify(newProps));
+/*
+    if (newProps.player) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(newProps.player)
+      })
+    }
+*/
+  }
+
 //  componentWillReceiveProps (newProps) {
     //console.log('PlayerCard.componentWillReceiveProps: ' + JSON.stringify(newProps));
 /*
@@ -48,8 +59,13 @@ class PlayerCard extends React.Component {
   }
 
   handlePressWon = (id, multiplier) => {
-    console.log('Won pressed, id: ' + id + ', multiplier: ' + multiplier);
+    //console.log('Won pressed, id: ' + id + ', multiplier: ' + multiplier);
     this.props.wonRequest(id, multiplier)
+  }
+
+  handlePressToggleActive = (id) => {
+    //console.log('ToggleActive, id: ' + id );
+    this.props.toggleActiveRequest(id)
   }
 
   updateText = (text) => {
@@ -61,8 +77,8 @@ class PlayerCard extends React.Component {
     const i = this.props.id;
     console.log('Components/PlayerCard, render(), this.props: ' + JSON.stringify(this.props))
     console.log('Components/PlayerCard, render(), this.props.player: ' + JSON.stringify(this.props.player))
-    console.log('this.props.balance: ' + JSON.stringify(this.props.balance))
-    console.log('this.props.balance.toFixed(2): ' + this.props.balance.toFixed())
+    //console.log('this.props.balance: ' + JSON.stringify(this.props.balance))
+    //console.log('this.props.balance.toFixed(2): ' + this.props.balance.toFixed())
     //https://facebook.github.io/react-native/docs/handling-text-input.html
     return (
       <View style={styles.cardStyle}>
@@ -98,11 +114,16 @@ class PlayerCard extends React.Component {
           }}>
             <Text>Undercut</Text>
           </MKButton>
-          <MKButton style={styles.buttonStyle} onPress={() => {
-            console.log('onPress');
-          }}>
-            <Text>Out</Text>
-          </MKButton>
+          { this.state.active ?
+            <MKButton style={styles.buttonStyle} onPress={() => { this.handlePressToggleActive(this.state.id) }}>
+              <Text>Out</Text>
+            </MKButton>
+            : null }
+          { !this.state.active ?
+            <MKButton style={styles.buttonStyle} onPress={() => { this.handlePressToggleActive(this.state.id) }}>
+              <Text>In</Text>
+            </MKButton>
+            : null }
           {/*
            <MKButton style={[{padding:5}]}>
            <Text>Lost Undercut</Text>
@@ -128,7 +149,8 @@ PlayerCard.propTypes = {
   balance: PropTypes.number.isRequired,
   active: PropTypes.bool,
   updateNameRequest: PropTypes.func,
-  wonRequest: PropTypes.func
+  wonRequest: PropTypes.func,
+  toggleActiveRequest: PropTypes.func
 }
 
 export default PlayerCard

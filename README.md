@@ -1,5 +1,7 @@
-#  tonk
+#  TonkScorecard
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
+
+Scorecard for [Tonk](https://en.wikipedia.org/wiki/Tonk_(card_game)).
 
 * Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
 
@@ -12,7 +14,7 @@
 **Step 3:** Install the Application with `npm install`
 
 
-## :arrow_forward: How to Run App
+## :arrow_forward: How to Run App on Desktop
 
 1. cd to the repo
 2. Run Build for either OS
@@ -22,22 +24,9 @@
     * Run Genymotion
     * run `react-native run-android`
 
-## :no_entry_sign: Standard Compliant
+## :arrow_forward: How to Run App on Device
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-This project adheres to Standard.  Our CI enforces this, so we suggest you enable linting to keep your project compliant during development.
-
-**To Lint on Commit**
-
-This is implemented using [ghooks](https://github.com/gtramontina/ghooks). There is no additional setup needed.
-
-**Bypass Lint**
-
-If you have to bypass lint for a special commit that you will come back and clean (pushing something to a branch etc.) then you can bypass git hooks with adding `--no-verify` to your commit command.
-
-**Understanding Linting Errors**
-
-The linting rules are from JS Standard and React-Standard.  [Regular JS errors can be found with descriptions here](http://eslint.org/docs/rules/), while [React errors and descriptions can be found here](https://github.com/yannickcr/eslint-plugin-react).
+Use the [React Native - Running On Device page](https://facebook.github.io/react-native/docs/running-on-device.html) instructions.
 
 ## :closed_lock_with_key: Secrets
 

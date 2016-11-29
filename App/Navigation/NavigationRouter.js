@@ -104,11 +104,11 @@ class NavigationRouter extends Component {
   }
 
   render () {
-    console.log('NavigationRouter, props: ' + JSON.stringify(this.props));
-    console.log('NavigationRouter, state: ' + JSON.stringify(this.state));
+    //console.log('NavigationRouter, props: ' + JSON.stringify(this.props));
+    //console.log('NavigationRouter, state: ' + JSON.stringify(this.state));
     let bet = this.state ? this.state.game.bet : this.props.game.bet;
-    console.log('NavigationRouter, bet: ' + bet);
-    console.log('NavigationRouter, this.state.game.bet: ' + this.state.game.bet);
+    //console.log('NavigationRouter, bet: ' + bet);
+    //console.log('NavigationRouter, this.state.game.bet: ' + this.state.game.bet);
     return (
       <Router>
         <Scene key='drawer' component={NavigationDrawer} open={false}>

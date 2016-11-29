@@ -25,3 +25,7 @@ export function * betMinus ({}) {
 export function * betPlus ({}) {
   yield put(GameActions.betPlus())
 }
+
+export function * toggleActive ({}) {
+  yield put(GameActions.toggleActive())
+}

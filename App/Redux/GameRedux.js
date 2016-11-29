@@ -14,8 +14,8 @@ const { Types, Creators } = createActions({
   playerAddRequest: [],
   playerAdd: [],
   playerDelete: ['name'],
-  playerIn: ['name'],
-  playerOut: ['name'],
+  toggleActiveRequest: ['id'],
+  toggleActive: ['id'],
   betPlusRequest: [],
   betPlus: [],
   betMinusRequest: [],
@@ -74,7 +74,6 @@ export const gameResetScores = (state = INITIAL_STATE, action) => {
   return state
 }
 
-// Add player request
 export const playerAddRequest = (state: Object) => {
   console.log('GameRedux.playerAddRequest, state: ' + JSON.stringify(state));
   //state.merge({ addingPlayer: true })
@@ -103,19 +102,22 @@ export const playerDelete = (state = INITIAL_STATE, action) => {
   return state
 }
 
-// Player in
-export const playerIn = (state = INITIAL_STATE, action) => {
-  if (state.playerCount < 5) {
-    state = update(state, { activeCount: state.activeCount + 1 })
-  }
-  return state
+export const toggleActiveRequest = (state: Object) => {
+  //console.log('GameRedux.playerAddRequest, state: ' + JSON.stringify(state));
+  //state.merge({ addingPlayer: true })
 }
 
-// Player Out
-export const playerOut = (state = INITIAL_STATE, action) => {
-  if (state.playerCount > 0) {
-    state = update(state, { activeCount: state.activeCount - 1 })
-  }
+export const toggleActive = (state: Object, { id }: Object) => {
+  let activeCount = state.activeCount;
+  let playerList = [];
+  state.player.forEach(function(p, i) {
+    if (i == id) {
+      activeCount = p.active ? state.activeCount-- : state.activeCount++;
+      p = update(p, { active: !p.active });
+    }
+    playerList.push(p);
+  });
+  state = update(state, { activeCount: activeCount, player: playerList })
   return state
 }
 
@@ -191,8 +193,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.PLAYER_ADD_REQUEST]: playerAddRequest,
   [Types.PLAYER_ADD]: playerAdd,
   [Types.PLAYER_DELETE]: playerDelete,
-  [Types.PLAYER_IN]: playerIn,
-  [Types.PLAYER_OUT]: playerOut,
+  [Types.TOGGLE_ACTIVE_REQUEST]: toggleActiveRequest,
+  [Types.TOGGLE_ACTIVE]: toggleActive,
   [Types.BET_MINUS_REQUEST]: betMinusRequest,
   [Types.BET_MINUS]: betMinus,
   [Types.BET_PLUS_REQUEST]: betPlusRequest,
