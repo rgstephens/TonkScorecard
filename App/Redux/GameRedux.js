@@ -16,6 +16,10 @@ const { Types, Creators } = createActions({
   playerDelete: ['name'],
   playerIn: ['name'],
   playerOut: ['name'],
+  betPlusRequest: [],
+  betPlus: [],
+  betMinusRequest: [],
+  betMinus: [],
   updateNameRequest: ['id', 'name'],
   updateName: ['id', 'name'],
   wonRequest: ['id', 'multiplier'],
@@ -115,6 +119,24 @@ export const playerOut = (state = INITIAL_STATE, action) => {
   return state
 }
 
+export const betMinusRequest = (state: Object) => {
+  //console.log('GameRedux.betMinusRequest, state: ' + JSON.stringify(state));
+}
+
+export const betMinus = (state = INITIAL_STATE, action) => {
+  state = update(state, { bet: state.bet - 1 })
+  return state
+}
+
+export const betPlusRequest = (state: Object) => {
+  //console.log('GameRedux.betPlusRequest, state: ' + JSON.stringify(state));
+}
+
+export const betPlus = (state = INITIAL_STATE, action) => {
+  state = update(state, { bet: state.bet + 1 })
+  return state
+}
+
 export const updateNameRequest = (state: Object) => {
   console.log('GameRedux.updateNameRequest, state: ' + JSON.stringify(state));
 }
@@ -171,6 +193,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.PLAYER_DELETE]: playerDelete,
   [Types.PLAYER_IN]: playerIn,
   [Types.PLAYER_OUT]: playerOut,
+  [Types.BET_MINUS_REQUEST]: betMinusRequest,
+  [Types.BET_MINUS]: betMinus,
+  [Types.BET_PLUS_REQUEST]: betPlusRequest,
+  [Types.BET_PLUS]: betPlus,
   [Types.UPDATE_NAME_REQUEST]: updateNameRequest,
   [Types.UPDATE_NAME]: updateName,
   [Types.WON_REQUEST]: wonRequest,

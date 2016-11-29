@@ -1,71 +1,118 @@
 // @flow
 
 import React, { Component, PropTypes } from 'react'
+import { TouchableOpacity, Text, View } from 'react-native'
+import styles from './Styles/NavItemsStyle'
 import { connect } from 'react-redux'
-import { Scene, Router } from 'react-native-router-flux'
+import { Scene, Router, ActionConst, Actions as NavigationActions } from 'react-native-router-flux'
 import Styles from './Styles/NavigationContainerStyle'
 import NavigationDrawer from './NavigationDrawer'
 import NavItems from './NavItems'
 import CustomNavBar from '../Components/CustomNavBar'
+import { getTheme, setTheme, MKButton, MKColor } from 'react-native-material-kit'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 
 // screens identified by the router
-import PresentationScreen from '../Containers/PresentationScreen'
-import AllComponentsScreen from '../Containers/AllComponentsScreen'
-import UsageExamplesScreen from '../Containers/UsageExamplesScreen'
-import LoginScreen from '../Containers/LoginScreen'
-import ListviewExample from '../Containers/ListviewExample'
-import ListviewGridExample from '../Containers/ListviewGridExample'
-import ListviewSectionsExample from '../Containers/ListviewSectionsExample'
-import MapviewExample from '../Containers/MapviewExample'
-import APITestingScreen from '../Containers/APITestingScreen'
 import ThemeScreen from '../Containers/ThemeScreen'
 import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import PlayerGrid from '../Containers/PlayerGrid'
+import GameActions from '../Redux/GameRedux'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/
 
-const update = (state, mutations) =>
-  Object.assign({}, state, mutations);
+const openDrawer = () => {
+  NavigationActions.refresh({
+    key: 'drawer',
+    open: true
+  })
+}
 
 class NavigationRouter extends Component {
 
+  constructor (props) {
+    super(props)
+    console.log('NavigationRouter constructor props.players: ' + JSON.stringify(props));
+    this.state = props;
+    this.handleBetMinus = this.handleBetMinus.bind(this);
+    this.handleBetPlus = this.handleBetPlus.bind(this);
+/*
+    this.setState({
+      game: props.game
+    })
+*/
+  }
+
+  betButton = (handlePlus, handleMinus, bet) => {
+    console.log('this.betButton, bet: ' + bet);
+    console.log('this.betButton, this.props: ' + JSON.stringify(this.props));
+    console.log('this.betButton, this.state: ' + JSON.stringify(this.state));
+    return (
+      <View style={styles.buttonRowViewStyle}>
+        <TouchableOpacity onPress={openDrawer}>
+          <MKButton style={styles.betButton} fab={true} rippleColor={`rgba(${MKColor.RGBIndigo},.2)`}
+                    rippleLocation="center" onPress={handleMinus}>
+            <Text><MaterialIcon name="remove" size={20} color={'white'}/></Text>
+          </MKButton>
+        </TouchableOpacity>
+        <MKButton style={[styles.betValue]}>
+          <Text style={styles.betText}>$ {this.state.game.bet}</Text>
+        </MKButton>
+        <TouchableOpacity onPress={openDrawer}>
+          <MKButton style={styles.betButton} fab={true} rippleColor={`rgba(${MKColor.RGBIndigo},.2)`}
+                    rippleLocation="center" onPress={handlePlus}>
+            <Text><MaterialIcon name="add" size={20} color={'white'}/></Text>
+          </MKButton>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  handleBetMinus = () => {
+    //console.log('handleBetPlus, state: ' + JSON.stringify(this.state));
+    //console.log('handleBetPlus, props: ' + JSON.stringify(this.props));
+    this.props.betMinusRequest()
+    NavigationActions.playerGrid({type: ActionConst.REFRESH});
+  }
+
   handleBetPlus = () => {
-    console.log('handleBetPlus, state: ' + JSON.stringify(this.state));
-    console.log('handleBetPlus, props: ' + JSON.stringify(this.props));
-    this.state = update(this.state, { bet: this.state.bet + 1 })
-    //this.props.betPlus()
+    //console.log('handleBetPlus, state: ' + JSON.stringify(this.state));
+    //console.log('handleBetPlus, props: ' + JSON.stringify(this.props));
+    this.props.betPlusRequest()
+    NavigationActions.playerGrid({type: ActionConst.REFRESH});
+  }
+
+  componentDidMount (props) {
+    console.log('NavigationRouter.componentDidMount, props: ' + JSON.stringify(props));
+    if (props) {
+      this.setState({
+        game: props.game
+      })
+    }
   }
 
   componentWillReceiveProps (newProps) {
     console.log('NavigationRouter.componentWillReceiveProps, newProps: ' + JSON.stringify(newProps));
-    if (newProps.game) {
-      this.setState({
-        game: newProps.game
-//        game: this.state.game.cloneWithRows(newProps.game)
-      })
-    }
+    console.log('NavigationRouter.componentWillReceiveProps, state: ' + JSON.stringify(this.state));
+    //this.setState({ game: newProps.game })
+    this.state = newProps;
+    console.log('NavigationRouter.componentWillReceiveProps, updated state: ' + JSON.stringify(this.state));
   }
 
   render () {
     console.log('NavigationRouter, props: ' + JSON.stringify(this.props));
     console.log('NavigationRouter, state: ' + JSON.stringify(this.state));
+    let bet = this.state ? this.state.game.bet : this.props.game.bet;
+    console.log('NavigationRouter, bet: ' + bet);
+    console.log('NavigationRouter, this.state.game.bet: ' + this.state.game.bet);
     return (
       <Router>
         <Scene key='drawer' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
 
-            <Scene initial key='playerGrid' component={PlayerGrid} title='Tonk' renderLeftButton={NavItems.hamburgerButton} renderRightButton={() => NavItems.betButton(this.handleBetPlus)}/>
-            <Scene key='presentationScreen' component={PresentationScreen} title='Ignite' renderLeftButton={NavItems.hamburgerButton} />
-            <Scene key='componentExamples' component={AllComponentsScreen} title='Components' />
-            <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} />
-            <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
-            <Scene key='listviewExample' component={ListviewExample} title='Listview Example' />
-            <Scene key='listviewGridExample' component={ListviewGridExample} title='Listview Grid' />
-            <Scene key='listviewSectionsExample' component={ListviewSectionsExample} title='Listview Sections' />
-            <Scene key='mapviewExample' component={MapviewExample} title='Mapview Example' />
-            <Scene key='apiTesting' component={APITestingScreen} title='API Testing' />
+            <Scene initial key='playerGrid' component={PlayerGrid} title='Tonk' renderLeftButton={NavItems.hamburgerButton}
+                   renderRightButton={() => this.betButton(this.handleBetPlus, this.handleBetMinus, this.state.game.bet)}/>
             <Scene key='theme' component={ThemeScreen} title='Theme' />
 
             {/* Custom navigation bar example */}
@@ -96,11 +143,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-/*
-    addPlayer: () => dispatch(GameActions.playerAdd()),
-    gameResetRequest: () => dispatch(GameActions.gameReset()),
-    gameResetScoresRequest: () => dispatch(GameActions.gameReset())
-*/
+    betPlusRequest: () => dispatch(GameActions.betPlus()),
+    betMinusRequest: () => dispatch(GameActions.betMinus())
   }
 }
 
