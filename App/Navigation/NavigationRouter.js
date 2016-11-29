@@ -73,6 +73,7 @@ class NavigationRouter extends Component {
     //console.log('handleBetPlus, state: ' + JSON.stringify(this.state));
     //console.log('handleBetPlus, props: ' + JSON.stringify(this.props));
     this.props.betMinusRequest()
+    // https://github.com/aksonov/react-native-router-flux/blob/master/docs/OTHER_INFO.md
     NavigationActions.playerGrid({type: ActionConst.REFRESH});
   }
 
@@ -83,6 +84,7 @@ class NavigationRouter extends Component {
     NavigationActions.playerGrid({type: ActionConst.REFRESH});
   }
 
+/*
   componentDidMount (props) {
     console.log('NavigationRouter.componentDidMount, props: ' + JSON.stringify(props));
     if (props) {
@@ -91,6 +93,7 @@ class NavigationRouter extends Component {
       })
     }
   }
+*/
 
   componentWillReceiveProps (newProps) {
     console.log('NavigationRouter.componentWillReceiveProps, newProps: ' + JSON.stringify(newProps));
