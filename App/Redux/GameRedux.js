@@ -36,7 +36,7 @@ export const INITIAL_STATE = Immutable({
   activeCount: 3,
   bet: 1,
   player: [
-    { ...PLAYER_INITIAL_STATE, id: 0, name: 'Greg' },
+    { ...PLAYER_INITIAL_STATE, id: 0 },
     { ...PLAYER_INITIAL_STATE, id: 1 },
     { ...PLAYER_INITIAL_STATE, id: 2 }
   ]
@@ -108,16 +108,23 @@ export const toggleActiveRequest = (state: Object) => {
 }
 
 export const toggleActive = (state: Object, { id }: Object) => {
+  console.log('GameRedux.toggleActive, state: ' + JSON.stringify(state));
   let activeCount = state.activeCount;
   let playerList = [];
   state.player.forEach(function(p, i) {
     if (i == id) {
-      activeCount = p.active ? state.activeCount-- : state.activeCount++;
+      if (p.active) {
+        activeCount--
+      } else {
+        activeCount++
+      }
+      console.log('activeCount: ' + activeCount);
       p = update(p, { active: !p.active });
     }
     playerList.push(p);
   });
   state = update(state, { activeCount: activeCount, player: playerList })
+  console.log('GameRedux.toggleActive, new state: ' + JSON.stringify(state));
   return state
 }
 
@@ -144,7 +151,7 @@ export const updateNameRequest = (state: Object) => {
 }
 
 export const updateName = (state: Object, { id, name }: Object) => {
-  //console.log('GameRedux.updateName, id: ' + id + ', name: ' + name + ', state: ' + JSON.stringify(state));
+  console.log('GameRedux.updateName, id: ' + id + ', name: ' + name + ', state: ' + JSON.stringify(state));
   let playerList = [];
   state.player.forEach(function(p, i) {
     if (i == id) {
@@ -174,7 +181,9 @@ export const won = (state: Object, { id, multiplier }: Object) => {
       //console.log('winnerDelta: ' + winnerDelta + ', calc: ' + (p.balance + winnerDelta));
       p = update(p, { balance: p.balance + winnerDelta });
     } else {
-      p = update(p, { balance: p.balance - (state.bet * multiplier) });
+      if (p.active) {
+        p = update(p, { balance: p.balance - (state.bet * multiplier) });
+      }
     }
     playerList.push(p);
   });
