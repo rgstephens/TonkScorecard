@@ -98,12 +98,27 @@ export default StyleSheet.create({
   buttonRowStyle: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     padding: 10 // TextView padding not handled well on Android https://github.com/facebook/react-native/issues/3233
+  },
+
+  // child of
+  buttonRowSpaceBetween: {
+    justifyContent: 'space-between'
+  },
+
+  // child of
+  buttonRowCenter: {
+    justifyContent: 'center'
   },
 
   // child of buttonRowStyle
   buttonStyle: {
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+
+  // child of buttonStyle
+  buttonText: {
     paddingLeft: 5,
     paddingRight: 5
   },
