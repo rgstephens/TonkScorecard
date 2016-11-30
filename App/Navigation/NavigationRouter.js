@@ -119,7 +119,7 @@ class NavigationRouter extends Component {
             <Scene key='theme' component={ThemeScreen} title='Theme' />
 
             {/* Custom navigation bar example */}
-            <Scene key='deviceInfo' component={DeviceInfoScreen} title='Device Info' navBar={CustomNavBar} />
+            <Scene key='deviceInfo' component={DeviceInfoScreen} title='About' navBar={CustomNavBar} />
           </Scene>
         </Scene>
       </Router>

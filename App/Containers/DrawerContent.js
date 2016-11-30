@@ -40,7 +40,7 @@ class DrawerContent extends Component {
       <ScrollView style={styles.container}>
         <Icon style={styles.logo} name='ios-calculator' size={20} color={Colors.broadmoorBlue} />
         <DrawerButton text='Scorecard' onPress={this.handlePlayerGrid} />
-        <DrawerButton text='Device Info' onPress={this.handlePressDevice} />
+        <DrawerButton text='About' onPress={this.handlePressDevice} />
       </ScrollView>
     )
   }
