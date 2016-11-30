@@ -14,16 +14,29 @@ import styles from './Styles/PlayerGridStyle'
 
 class PlayerGrid extends React.Component {
 
+/*
   state: {
     dataSource: Object
   }
+*/
 
   constructor (props) {
     super(props)
     console.log('PlayerGrid constructor props.players: ' + JSON.stringify(props.player));
 
     const rowHasChanged = (r1, r2) => r1 !== r2
-
+/*
+    const rowHasChanged = (r1, r2) => {
+      console.log('rowHasChanged, r1: ' + JSON.stringify(r1) + ', r2: ' + JSON.stringify(r2))
+      if (r1 !== r2) {
+        console.log('true')
+        return true
+      } else {
+        console.log('false')
+        return false
+      }
+    }
+*/
     // DataSource configured
     const ds = new ListView.DataSource({rowHasChanged})
 

@@ -43,19 +43,21 @@ class PlayerCard extends React.Component {
 
   handleUpdateName = (id, name) => {
     console.log('handleUpdateName, name: ' + name + ', id: ' + id);
+    console.log('handleUpdateName, JSON.stringify(name): ' + JSON.stringify(name));
     //console.log('handleUpdateName, state: ' + JSON.stringify(state));
     //console.log('handleUpdateName, this.state: ' + JSON.stringify(this.state));
     //console.log('handleUpdateName, this.props: ' + JSON.stringify(this.props));
-    this.setState((name) => {
-      return {
-        curText: name,
-        prevText: this.state.curText,
-        prev2Text: this.state.prevText,
-        prev3Text: this.state.prev2Text,
-      };
-    });
-//    console.log('handleUpdateName, stringify(name.target): ' + JSON.stringify(name.target) + ', id: ' + id);
-    this.props.updateNameRequest(id, name)
+    if (name) {
+      this.setState((name) => {
+        return {
+          curText: name,
+          prevText: this.state.curText,
+          prev2Text: this.state.prevText,
+          prev3Text: this.state.prev2Text,
+        };
+      });
+      this.props.updateNameRequest(id, name)
+    }
   }
 
   handlePressWon = (id, multiplier) => {
@@ -76,7 +78,7 @@ class PlayerCard extends React.Component {
   render () {
     const i = this.props.id;
     console.log('Components/PlayerCard, render(), this.props: ' + JSON.stringify(this.props))
-    console.log('Components/PlayerCard, render(), this.props.player: ' + JSON.stringify(this.props.player))
+    //console.log('Components/PlayerCard, render(), this.props.player: ' + JSON.stringify(this.props.player))
     //console.log('this.props.balance: ' + JSON.stringify(this.props.balance))
     //console.log('this.props.balance.toFixed(2): ' + this.props.balance.toFixed())
     //https://facebook.github.io/react-native/docs/handling-text-input.html
@@ -93,7 +95,8 @@ class PlayerCard extends React.Component {
 //                     onEndEditing={(name) => this.handleUpdateName(this.state.id, name)}
 //                     onChangeText={(name) => this.setState({name})}
 //                     onSubmitEditing={(event) => this.handleUpdateName(this.state.id, event.nativeEvent.text)}
-                     onEndEditing={(event) => this.handleUpdateName(this.state.id, event.nativeEvent.text)}
+//                     onEndEditing={(name) => this.handleUpdateName(this.props.id, name)}
+                     onEndEditing={({id, text}) => this.handleUpdateName(this.props.id, this.state.name)}
                      onChangeText={(name) => this.setState({name})}
           />
           <MKButton
@@ -102,26 +105,30 @@ class PlayerCard extends React.Component {
               style={styles.balanceText}>{this.props.balance < 0 ? this.props.balance.toFixed(2) : '+' + this.props.balance.toFixed(2)}</Text>
           </MKButton>
         </View>
-        <View style={styles.buttonRowStyle}>
-          <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id, 1)}>
-            <Text>Won</Text>
-          </MKButton>
-          <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.state.id, 2)}>
-            <Text>Double</Text>
-          </MKButton>
-          <MKButton style={styles.buttonStyle} onPress={() => {
-            console.log('onPress');
-          }}>
-            <Text>Undercut</Text>
-          </MKButton>
-          { this.state.active ?
-            <MKButton style={styles.buttonStyle} onPress={() => { this.handlePressToggleActive(this.state.id) }}>
+        <View style={[styles.buttonRowStyle, this.props.active ? styles.buttonRowSpaceBetween : styles.buttonRowCenter]}>
+          { this.props.active ?
+            <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.props.id, 1)}>
+              <Text>Won</Text>
+            </MKButton>
+            : null }
+          { this.props.active ?
+            <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.props.id, 2)}>
+              <Text>Double</Text>
+            </MKButton>
+            : null }
+          { this.props.active ?
+            <MKButton style={styles.buttonStyle} onPress={() => { console.log('onPress'); }}>
+              <Text>Undercut</Text>
+            </MKButton>
+            : null }
+          { this.props.active ?
+            <MKButton style={styles.buttonStyle} onPress={() => { this.handlePressToggleActive(this.props.id) }}>
               <Text>Out</Text>
             </MKButton>
             : null }
-          { !this.state.active ?
-            <MKButton style={styles.buttonStyle} onPress={() => { this.handlePressToggleActive(this.state.id) }}>
-              <Text>In</Text>
+          { !this.props.active ?
+            <MKButton style={styles.buttonStyle} onPress={() => { this.handlePressToggleActive(this.props.id) }}>
+              <Text style={styles.buttonText}>In</Text>
             </MKButton>
             : null }
           {/*
