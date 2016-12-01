@@ -1,6 +1,7 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 import { INITIAL_STATE as PLAYER_INITIAL_STATE } from './PlayerRedux'
+import { ActionConst, Actions as NavigationActions } from 'react-native-router-flux'
 
 // Game is a reducer/collection that tracks the state of the Player reducers/collection
 
@@ -20,6 +21,8 @@ const { Types, Creators } = createActions({
   betPlus: [],
   betMinusRequest: [],
   betMinus: [],
+  scoringRequest: ['id', 'action', 'option'],
+  scoring: ['id', 'action', 'option'],
   updateNameRequest: ['id', 'name'],
   updateName: ['id', 'name'],
   wonRequest: ['id', 'multiplier'],
@@ -35,6 +38,9 @@ export const INITIAL_STATE = Immutable({
   playerCount: 3,
   activeCount: 3,
   bet: 1,
+  undercutScoring: false,
+  undercutWinnerId: null,
+  undercutLoserId: null,
   player: [
     { ...PLAYER_INITIAL_STATE, id: 0 },
     { ...PLAYER_INITIAL_STATE, id: 1 },
@@ -46,6 +52,74 @@ export const INITIAL_STATE = Immutable({
 
 const update = (state, mutations) =>
   Object.assign({}, state, mutations);
+
+export const scoringRequest = (state: Object) => {
+  console.log('GameRedux.scoringRequest, state: ' + JSON.stringify(state));
+}
+
+export const scoring = (state: Object, { id, action, option }: Object) => {
+  console.log('GameRedux.scoring, id: ' + id + ', action: ' + action + ', option: ' + option +  ', state: ' + JSON.stringify(state));
+  let playerList = [];
+  let newId = null;
+  switch (action) {
+    case 'UT':
+      // toggle undercut scoring
+      state.player.forEach(function(p, i) {
+        p = update(p, { undercutLoser: false, undercutWinner: false });
+        playerList.push(p);
+      });
+      state = update(state, { undercutScoring: !state.undercutScoring, player: playerList });
+      //NavigationActions.playerGrid({type: ActionConst.REFRESH});
+      break;
+    case 'UL':
+      // toggle undercut loser
+      state.player.forEach(function(p, i) {
+        if (i == id) {
+          newId = p.undercutLoser ? null : i;
+          p = update(p, { undercutLoser: !p.undercutLoser });
+        }
+        playerList.push(p);
+      });
+      state = update(state, { undercutLoserId: newId, player: playerList });
+      break;
+    case 'UW':
+      // toggle undercut winner
+      state.player.forEach(function(p, i) {
+        if (i == id) {
+          newId = p.undercutWinner ? null : i;
+          p = update(p, { undercutWinner: !p.undercutWinner });
+        }
+        playerList.push(p);
+      });
+      console.log('undercutWinnerId: ' + newId);
+      state = update(state, { undercutWinnerId: newId, player: playerList });
+      break;
+  }
+  // Check to see if Undercut scoring is complete - we have a winner & loser
+  if (state.undercutScoring && (state.undercutWinnerId !== null) && (state.undercutLoserId !== null)) {
+    console.log('Undercut scoring is complete')
+    playerList = [];
+    state.player.forEach(function(p, i) {
+      const stake = (state.bet * (state.activeCount - 1) * 2)
+      if (p.undercutWinner) {
+        p = update(p, { undercutWinner: false, undercutLoser: false, balance: p.balance + stake });
+      } else if (p.undercutLoser) {
+        p = update(p, { undercutWinner: false, undercutLoser: false, balance: p.balance - stake });
+      } else {
+        p = update(p, { undercutWinner: false, undercutLoser: false });
+      }
+/*
+      const winnerDelta = (state.bet * multiplier) * (state.activeCount - 1);
+      p = update(p, { balance: p.balance + winnerDelta });
+      p = update(p, { balance: p.balance - (state.bet * multiplier) });
+*/
+
+      playerList.push(p);
+    });
+    state = update(state, { undercutScoring: null, undercutLoserId: null, undercutWinnerId: null, player: playerList });
+  }
+  return state
+}
 
 export const gameResetRequest = (state: Object) => {
   console.log('GameRedux.gameResetRequest, state: ' + JSON.stringify(state));
@@ -60,6 +134,7 @@ export const gameReset = (state = INITIAL_STATE, action) => {
 
 export const gameResetScoresRequest = (state: Object) => {
   console.log('GameRedux.gameResetScoresRequest, state: ' + JSON.stringify(state));
+  playerList = [];
 }
 
 export const gameResetScores = (state = INITIAL_STATE, action) => {
@@ -210,6 +285,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.BET_PLUS]: betPlus,
   [Types.UPDATE_NAME_REQUEST]: updateNameRequest,
   [Types.UPDATE_NAME]: updateName,
+  [Types.SCORING_REQUEST]: scoringRequest,
+  [Types.SCORING]: scoring,
   [Types.WON_REQUEST]: wonRequest,
   [Types.WON]: won
 })

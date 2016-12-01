@@ -17,7 +17,9 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   name: '',
   balance: 0,
-  active: true
+  active: true,
+  undercutLoser: false,
+  undercutWinner: false
 })
 
 /* ------------- Reducers ------------- */

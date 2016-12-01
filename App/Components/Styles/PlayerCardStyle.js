@@ -113,8 +113,25 @@ export default StyleSheet.create({
 
   // child of buttonRowStyle
   buttonStyle: {
+    borderRadius: 3,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
+    paddingVertical: 2
+  },
+
+  // child of buttonStyle
+  buttonOn: {
+    backgroundColor: Colors.background
+  },
+
+  // child of buttonStyle
+  buttonOnLose: {
+    backgroundColor: 'red'
+  },
+
+  // child of buttonStyle
+  buttonTextOn: {
+    color: 'white'
   },
 
   // child of buttonStyle

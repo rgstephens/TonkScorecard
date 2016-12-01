@@ -45,9 +45,9 @@ class NavigationRouter extends Component {
   }
 
   betButton = (handlePlus, handleMinus, bet) => {
-    console.log('this.betButton, bet: ' + bet);
-    console.log('this.betButton, this.props: ' + JSON.stringify(this.props));
-    console.log('this.betButton, this.state: ' + JSON.stringify(this.state));
+    //console.log('this.betButton, bet: ' + bet);
+    //console.log('this.betButton, this.props: ' + JSON.stringify(this.props));
+    //console.log('this.betButton, this.state: ' + JSON.stringify(this.state));
     return (
       <View style={styles.buttonRowViewStyle}>
         <TouchableOpacity onPress={openDrawer}>
@@ -96,11 +96,10 @@ class NavigationRouter extends Component {
 */
 
   componentWillReceiveProps (newProps) {
-    console.log('NavigationRouter.componentWillReceiveProps, newProps: ' + JSON.stringify(newProps));
-    console.log('NavigationRouter.componentWillReceiveProps, state: ' + JSON.stringify(this.state));
-    //this.setState({ game: newProps.game })
+    //console.log('NavigationRouter.componentWillReceiveProps, newProps: ' + JSON.stringify(newProps));
+    //console.log('NavigationRouter.componentWillReceiveProps, state: ' + JSON.stringify(this.state));
     this.state = newProps;
-    console.log('NavigationRouter.componentWillReceiveProps, updated state: ' + JSON.stringify(this.state));
+    //console.log('NavigationRouter.componentWillReceiveProps, updated state: ' + JSON.stringify(this.state));
   }
 
   render () {

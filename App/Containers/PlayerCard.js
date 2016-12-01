@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    scoringRequest: (id, action, option) => dispatch(GameActions.scoring(id, action, option)),
     toggleActiveRequest: (id) => dispatch(GameActions.toggleActive(id)),
     updateNameRequest: (id, name) => dispatch(GameActions.updateName(id, name)),
     wonRequest: (id, multiplier) => dispatch(GameActions.won(id, multiplier))

@@ -15,7 +15,7 @@ import { GameTypes } from '../Redux/GameRedux'
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
 import { getTemperature } from './TemperatureSagas'
-import { reset, add, resetscores, updateName, betPlus, betMinus, toggleActive } from './GameSagas'
+import { reset, add, resetscores, updateName, betPlus, betMinus, toggleActive, scoring } from './GameSagas'
 
 /* ------------- API ------------- */
 
@@ -36,6 +36,7 @@ export default function * root () {
     takeLatest(GameTypes.BET_PLUS_REQUEST, betPlus),
     takeLatest(GameTypes.BET_MINUS_REQUEST, betMinus),
     takeLatest(GameTypes.TOGGLE_ACTIVE_REQUEST, toggleActive),
+    takeLatest(GameTypes.SCORING_REQUEST, scoring),
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(GameTypes.UPDATE_NAME_REQUEST, updateName),

@@ -14,8 +14,12 @@ export function * resetscores ({}) {
   yield put(GameActions.gameResetScores())
 }
 
+export function * scoring ({id, action, option}) {
+  yield put(GameActions.scoring(id, action, option))
+}
+
 export function * updateName ({id, name}) {
-  yield put(GameActions.updateName(name))
+  yield put(GameActions.updateName(id, name))
 }
 
 export function * betMinus ({}) {

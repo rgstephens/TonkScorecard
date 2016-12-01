@@ -62,7 +62,7 @@ class PlayerGrid extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log('PlayerGrid.componentWillReceiveProps, newProps.player: ' + JSON.stringify(newProps.player));
+    console.log('PlayerGrid.componentWillReceiveProps, newProps: ' + JSON.stringify(newProps));
     if (newProps.player) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(newProps.player)
@@ -79,14 +79,15 @@ class PlayerGrid extends React.Component {
 
   // https://github.com/xinthink/rnmk-demo/blob/master/app/cards.js
   render () {
-    //console.log('render PlayerGrid.this.props: ' + JSON.stringify(this.props));
-    console.log('render PlayerGrid.this.state.dataSource: ' + JSON.stringify(this.state.dataSource));
+    console.log('render PlayerGrid.this.props: ' + JSON.stringify(this.props));
+    console.log('render PlayerGrid.this.state: ' + JSON.stringify(this.state));
+    //console.log('render PlayerGrid.this.state.dataSource: ' + JSON.stringify(this.state.dataSource));
     return (
       <View style={styles.container}>
         <AlertMessage title='CLick plus to add a player' show={this._noRowData()}/>
         <ListView contentContainerStyle={styles.listContent} dataSource={this.state.dataSource}
-                  renderRow={(rowData, sectionID, rowID, highlightRow) => <PlayerCard {...rowData} s={sectionID}
-                                                                                      id={rowID}/>}/>
+                  renderRow={(rowData, sectionID, rowID, highlightRow) => <PlayerCard {...rowData} undercutScoring={this.props.game.undercutScoring}
+                              undercutLoserId={this.props.game.undercutLoserId} undercutWinnerId={this.props.game.undercutWinnerId} id={rowID}/>}/>
         <MKButton style={styles.plusButtonStyle} fab={true} rippleColor={`rgba(${MKColor.RGBIndigo},.2)`}
                   rippleLocation="center" onPress={this.handlePressAddPlayer}>
           <Text><MaterialIcon name="add" size={30} color={'white'}/></Text>
@@ -115,8 +116,9 @@ PlayerGrid.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  console.log('PlayerGrid.mapStateToProps, state.game.player: ' + JSON.stringify(state.game.player));
+  console.log('PlayerGrid.mapStateToProps, state: ' + JSON.stringify(state));
   return {
+    game: state.game,
     player: state.game.player
   }
 }
