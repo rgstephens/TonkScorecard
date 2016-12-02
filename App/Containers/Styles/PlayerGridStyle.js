@@ -18,7 +18,7 @@ export default StyleSheet.create({
     padding: 6,
     paddingLeft: 2,
     paddingRight: 2,
-    marginTop: Platform.OS === 'android' ? Metrics.navBarHeight + 56 : Metrics.navBarHeight,
+    marginTop: Platform.OS === 'android' ? Metrics.navBarHeight : Metrics.navBarHeight,
   },
 
   // child of container

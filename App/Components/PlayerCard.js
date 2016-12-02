@@ -83,30 +83,22 @@ class PlayerCard extends React.Component {
   render () {
     const i = this.props.id;
     console.log('Components/PlayerCard, render(), this.props: ' + JSON.stringify(this.props))
-    console.log('Components/PlayerCard, render(), this.state: ' + JSON.stringify(this.state))
+    // serialize console.log('Components/PlayerCard, render(), this.state: ' + JSON.stringify(this.state))
     //console.log('Components/PlayerCard, render(), this.props.player: ' + JSON.stringify(this.props.player))
     //console.log('this.props.balance: ' + JSON.stringify(this.props.balance))
     //console.log('this.props.balance.toFixed(2): ' + this.props.balance.toFixed())
     //https://facebook.github.io/react-native/docs/handling-text-input.html
     return (
       <View style={styles.cardStyle}>
-        <View resizeMode="cover"
+        <View
               style={[styles.cardTitleContainer, i == 0 ? styles.cardTitleBackgroundColor1 : i == 1 ? styles.cardTitleBackgroundColor2 : i == 2 ? styles.cardTitleBackgroundColor3 : i == 3 ? styles.cardTitleBackgroundColor4 : styles.cardTitleBackgroundColor5]}>
-          <TextInput style={styles.cardTitleEdit} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')} autoCorrect={false}
-                     value={this.state.name}
-            //                     onEndEditing={(event) => this.handleUpdateName(event.nativeEvent.text, this.state.id)}
-//                     onSubmitEditing={(event) => this.handleUpdateName(event.nativeEvent.text, this.state.id)}
-//                     onEndEditing={(event) => this.handleUpdateName(this.state.id, this.state.name)}
-//                     onEndEditing={(name) => this.handleUpdateName(this.state.id, this.state.name)}
-//                     onEndEditing={(name) => this.handleUpdateName(this.state.id, name)}
-//                     onChangeText={(name) => this.setState({name})}
-//                     onSubmitEditing={(event) => this.handleUpdateName(this.state.id, event.nativeEvent.text)}
-//                     onEndEditing={(name) => this.handleUpdateName(this.props.id, name)}
+          <TextInput style={styles.nameInput} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')} autoCorrect={false}
+                     value={this.state.name} underlineColorAndroid='rgba(0,0,0,0)' autoCapitalize='words'
                      onEndEditing={({id, text}) => this.handleUpdateName(this.props.id, this.state.name)}
                      onChangeText={(name) => this.setState({name})}
           />
           <MKButton
-            style={[styles.cardTitleButton, this.props.balance > 0 ? styles.colorPlus : this.props.balance < 0 ? styles.colorMinus : null]}>
+            style={[styles.balanceButton, this.props.balance > 0 ? styles.colorPlus : this.props.balance < 0 ? styles.colorMinus : null]}>
             <Text
               style={styles.balanceText}>{this.props.balance < 0 ? this.props.balance.toFixed(2) : '+' + this.props.balance.toFixed(2)}</Text>
           </MKButton>

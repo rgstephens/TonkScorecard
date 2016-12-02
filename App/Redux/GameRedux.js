@@ -138,7 +138,7 @@ export const gameResetScoresRequest = (state: Object) => {
 }
 
 export const gameResetScores = (state = INITIAL_STATE, action) => {
-  //console.log('GameRedux.gameResetScores, existing state: ' + JSON.stringify(state) + ', action: ' + JSON.stringify(action));
+  console.log('GameRedux.gameResetScores, existing state: ' + JSON.stringify(state) + ', action: ' + JSON.stringify(action));
   let playerList = [];
   state.player.forEach(function(p) {
     p.balance = 0;

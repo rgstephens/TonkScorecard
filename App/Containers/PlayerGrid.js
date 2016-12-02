@@ -112,6 +112,7 @@ PlayerGrid.propTypes = {
     active: PropTypes.bool.isRequired
   }).isRequired),
   addPlayer: PropTypes.func,
+  gameResetScoresRequest: PropTypes.func,
   gameResetRequest: PropTypes.func
 }
 
@@ -127,7 +128,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addPlayer: () => dispatch(GameActions.playerAdd()),
     gameResetRequest: () => dispatch(GameActions.gameReset()),
-    gameResetScoresRequest: () => dispatch(GameActions.gameReset())
+    gameResetScoresRequest: () => dispatch(GameActions.gameResetScores())
   }
 }
 

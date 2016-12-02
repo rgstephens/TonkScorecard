@@ -7,7 +7,7 @@ import { MKColor } from 'react-native-material-kit'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
 
-  // child of listContent
+  // child of listContent from PlayerGrid ListView
   cardStyle: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -26,40 +26,49 @@ export default StyleSheet.create({
     },
   },
 
-  // child of
+  // child of cardStyle
   cardTitleContainer: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 50,
+    //marginBottom: 20
+    //paddingVertical: 10
   },
 
-  // child of
   cardTitle: {
     position: 'absolute',
     top: 8,
     left: 8,
+    backgroundColor: 'white',
+    padding: 4,
+    fontSize: 18,
+    color: Colors.black,
+    fontWeight: 'bold',
+  },
+
+  // child of cardTitleContainer
+  nameInput: {
+    flex: 1,
+//    top: 20,
+//    left: 8,
+    marginVertical: 10,
+    marginHorizontal: 5,
+    height: 30,
     backgroundColor: 'transparent',
     padding: 4,
     fontSize: 18,
     color: Colors.black,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
-  cardTitleEdit: {
-    top: 20,
-    left: 8,
-    backgroundColor: 'transparent',
-    padding: 4,
-    fontSize: 18,
-    color: Colors.black,
-    fontWeight: 'bold'
-  },
-  cardTitleButton: {
+
+  // child of cardTitleContainer
+  balanceButton: {
     alignSelf: 'flex-end',
     width: 70,
     height: 30,
-    padding: 5,
+    paddingVertical: 5,
     marginBottom: 10,
     marginRight: 10,
     paddingRight: 10,
@@ -94,7 +103,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.background1e,
   },
 
-  // child of
+  // child of cardStyle
   buttonRowStyle: {
     flex: 1,
     flexDirection: 'row',
