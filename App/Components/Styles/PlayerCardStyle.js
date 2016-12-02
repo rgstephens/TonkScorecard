@@ -17,13 +17,14 @@ export default StyleSheet.create({
     marginTop: 3,
     marginLeft: 10,
     marginRight: 10,
-    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    shadowColor: 'rgba(0, 0, 0, 0.22)',
     shadowOpacity: 0.8,
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
       width: 2
     },
+    elevation: 10,
   },
 
   // child of cardStyle

@@ -25,7 +25,7 @@ export default StyleSheet.create({
   listContent: {
     justifyContent: 'space-around',
     flexDirection: 'column',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
 
 /*
