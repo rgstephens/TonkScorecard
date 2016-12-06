@@ -17,6 +17,7 @@ export default StyleSheet.create({
     marginTop: 3,
     marginLeft: 10,
     marginRight: 10,
+    marginBottom: 8,
     shadowColor: 'rgba(0, 0, 0, 0.22)',
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -76,7 +77,8 @@ export default StyleSheet.create({
     borderRadius: 3,
     shadowRadius: 2,
     shadowOpacity: .7,
-    shadowColor: 'black'
+    shadowColor: 'black',
+    elevation: 2
   },
   colorPlus: {
     backgroundColor: Colors.mediumAquamarine,

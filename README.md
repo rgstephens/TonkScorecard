@@ -51,3 +51,14 @@ The `.env` file is ignored by git keeping those secrets out of your repo.
 
 ## :open_file_folder: Related Articles
 Ignite Documentation - [Ignite Wiki https://github.com/infinitered/ignite/wiki](https://github.com/infinitered/ignite/wiki)
+
+## AppStore Info
+
+### Short description
+
+Scorecard for Tonk card game
+
+### Full description
+
+This is a score keeping app for the Tonk card game https://en.wikipedia.org/wiki/Tonk_(card_game)
+

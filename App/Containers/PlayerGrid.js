@@ -88,10 +88,12 @@ class PlayerGrid extends React.Component {
         <ListView contentContainerStyle={styles.listContent} dataSource={this.state.dataSource}
                   renderRow={(rowData, sectionID, rowID, highlightRow) => <PlayerCard {...rowData} undercutScoring={this.props.game.undercutScoring}
                               undercutLoserId={this.props.game.undercutLoserId} undercutWinnerId={this.props.game.undercutWinnerId} id={rowID}/>}/>
+        { this.props.game.playerCount < 5 ?
         <MKButton style={styles.plusButtonStyle} fab={true} rippleColor={`rgba(${MKColor.RGBIndigo},.2)`}
                   rippleLocation="center" onPress={this.handlePressAddPlayer}>
           <Text><MaterialIcon name="add" size={30} color={'white'}/></Text>
         </MKButton>
+          : null }
         <View style={styles.buttonRowStyle}>
           <MKButton style={[styles.regularButtonStyle, styles.buttonLeftStyle]} onPress={this.handlePressScoresReset}>
             <Text style={styles.buttonText}>Reset Scores</Text>

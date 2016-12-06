@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { View, Text, TextInput, ListView, Image, Button } from 'react-native'
+import { View, Text, TextInput, ListView, Image, Button, KeyboardAvoidingView } from 'react-native'
 import { getTheme, setTheme, MKButton } from 'react-native-material-kit'
 import styles from './Styles/PlayerCardStyle'
 
@@ -90,7 +90,7 @@ class PlayerCard extends React.Component {
     //https://facebook.github.io/react-native/docs/handling-text-input.html
     return (
       <View style={styles.cardStyle}>
-        <View
+        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={20}
               style={[styles.cardTitleContainer, i == 0 ? styles.cardTitleBackgroundColor1 : i == 1 ? styles.cardTitleBackgroundColor2 : i == 2 ? styles.cardTitleBackgroundColor3 : i == 3 ? styles.cardTitleBackgroundColor4 : styles.cardTitleBackgroundColor5]}>
           <TextInput style={styles.nameInput} selectTextOnFocus={true} onFocus={() => this.updateText('--onFocus--')} autoCorrect={false}
                      value={this.state.name} underlineColorAndroid='rgba(0,0,0,0)' autoCapitalize='words'
@@ -102,7 +102,7 @@ class PlayerCard extends React.Component {
             <Text
               style={styles.balanceText}>{this.props.balance < 0 ? this.props.balance.toFixed(2) : '+' + this.props.balance.toFixed(2)}</Text>
           </MKButton>
-        </View>
+        </KeyboardAvoidingView>
         <View style={[styles.buttonRowStyle, this.props.active ? styles.buttonRowSpaceBetween : styles.buttonRowCenter]}>
           { this.props.active && !this.props.undercutScoring ?
             <MKButton style={styles.buttonStyle} onPress={(id) => this.handlePressWon(this.props.id, 1)}>

@@ -15,6 +15,7 @@ export default StyleSheet.create({
     flex: 1,
 //    alignItems: 'stretch',
 //    backgroundColor: '#F5FCFF',
+    backgroundColor: 'transparent',
     padding: 6,
     paddingLeft: 2,
     paddingRight: 2,
@@ -26,6 +27,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     flexDirection: 'column',
     flexWrap: 'wrap',
+    backgroundColor: 'transparent',
   },
 
 /*
@@ -44,6 +46,7 @@ export default StyleSheet.create({
 //    justifyContent: 'flex-end',
 //    height: 80,
 //    padding: 10 // TextView padding not handled well on Android https://github.com/facebook/react-native/issues/3233
+    backgroundColor: 'transparent',
   },
 
   plusButtonStyle: {
@@ -61,7 +64,8 @@ export default StyleSheet.create({
     shadowColor: 'black',
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 2},
-    shadowOpacity: .7
+    shadowOpacity: .7,
+    elevation: 3
   },
 
   buttonRowStyle: {
@@ -69,6 +73,7 @@ export default StyleSheet.create({
     paddingHorizontal: Metrics.doubleBaseMargin,
     justifyContent: 'space-around',
     flexDirection: 'row',
+    backgroundColor: 'transparent',
     paddingBottom: 0
 /*
     flex: 1,

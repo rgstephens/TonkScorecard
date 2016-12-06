@@ -44,10 +44,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     shadowRadius: 2,
     shadowOpacity: .7,
-    shadowColor: 'black'
+    shadowColor: 'black',
+    elevation: 3
   },
   betText: {
-    fontWeight: 'normal',
+    fontWeight: 'bold',
     color: 'white',
     alignSelf: 'center'
   }
